@@ -99,7 +99,7 @@ class CdkApp7Stack(Stack):
         # creating the alb's base, rules created after asg
         lb = elbv2.ApplicationLoadBalancer(self, "LB",
             vpc=vpc,
-            # need to add a security group specific to elb/cdn later on for user
+            # need to add a security group specific to elb\cdn later on for user
             internet_facing=True,
         )
 
@@ -135,6 +135,15 @@ class CdkApp7Stack(Stack):
         #     webAclArn= ""
         # )
 
+
+
+
+
+        # fetching user_data of prestashop instances
+        # with open('/home/julienrm/code/snef/cdk-global-v7/cdk-app7/cdk_app7/user_datas/presta_user_data', "r") as user_data_file:
+        #     user_data_content = user_data_file.read()
+
+
         asg = autoscaling.AutoScalingGroup(self, "V7AutoScalingGroup3",
             vpc=vpc,
             # instance_type=ec2.InstanceType.of(ec2.InstanceClass.BURSTABLE2, ec2.InstanceSize.MICRO),
@@ -145,7 +154,6 @@ class CdkApp7Stack(Stack):
             ### CURRENT LATEST UBUNTU
             machine_image=ec2.MachineImage.generic_linux(ami_map={'eu-west-3': 'ami-01d21b7be69801c2f'}),
 
-
             security_group=ec2_security_group,
             role=role,
             min_capacity=2,
@@ -153,6 +161,14 @@ class CdkApp7Stack(Stack):
             desired_capacity=2,
             vpc_subnets=ec2.SubnetSelection(subnet_type=ec2.SubnetType.PUBLIC),
             # here add again an user data with new_endpoint
+            # user_data = ec2.UserData.custom(
+            #     user_data_content.format(
+            #         alb_dns=lb.load_balancer_dns_name,
+            #         # secret_arn = secret.secret_arn,
+            #         # rds_proxy_endpoint=proxy.endpoint,
+            #         # db_password=rds_instance.secret.secret_value_from_json("password").to_string(),
+            #     )
+            # ),
             key_name="eu-west3N",
         )
         # not sure it does anything
