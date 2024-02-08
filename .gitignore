@@ -8,3 +8,24 @@ __pycache__
 # CDK asset staging directory
 .cdk.staging
 cdk.out
+
+
+
+### Personals
+
+##app
+cdk_app7/user_datas/presta_user_data_4
+cdk_app7/user_datas/presta_user_data_3
+cdk_app7/user_datas/presta_user_data_2
+cdk_app7/presta_script.sh
+cdk_app7/ec2_script.sh
+
+cdk_app7/dump.py
+cdk_app7/stack_todobang.py
+
+
+
+
+# unsure
+eu-west3N.pem
+eu-west3N.pem:Zone.Identifier

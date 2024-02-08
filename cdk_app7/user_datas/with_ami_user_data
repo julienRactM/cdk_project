@@ -1,0 +1,24 @@
+CONFIG_FILE="/var/www/prestashop/app/config/parameters.php"
+# NEW_ENDPOINT="{new_endpoint}"
+# fonctionne hormis le changement de mdp vu qu'il faut le récupérer depuis secrets pour l'écrire en brut et aws est pas fan
+# sudo sed -i "s/'database_host' => '[^']*'/'database_host' => '$NEW_ENDPOINT'/g" $CONFIG_FILE
+# sed -i "s/'database_password' => '[^']*'/'database_password' => '$NEW_PASSWORD'/g" $CONFIG_FILE
+
+
+#changing current ip, still may be bugged
+sudo bash -c 'cat <<EOF > /etc/apache2/sites-available/prestashop.conf
+<VirtualHost *:80>
+    ServerAdmin admin@$(curl -s http://checkip.amazonaws.com)
+    ServerName $(curl -s http://checkip.amazonaws.com)
+    DocumentRoot /var/www/prestashop
+
+    <Directory /var/www/prestashop>
+        Options +FollowSymlinks
+        AllowOverride AllC
+        Require all granted
+    </Directory>
+
+    ErrorLog /var/log/apache2/prestashop-error_log
+    CustomLog /var/log/apache2/prestashop-access_log common
+</VirtualHost>
+EOF'

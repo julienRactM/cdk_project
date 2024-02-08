@@ -1,0 +1,8 @@
+{
+  "availability-zones:account=944187825807:region=eu-west-3": [
+    "eu-west-3a",
+    "eu-west-3b",
+    "eu-west-3c"
+  ],
+  "ami:account=944187825807:filters.image-type.0=machine:filters.name.0=ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*:filters.state.0=available:region=eu-west-3": "ami-0b58cfb1e715181d1"
+}
